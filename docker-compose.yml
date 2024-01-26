@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  backend:
+    container_name: "django4"
+    build:
+      context: ./backend/docker
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/app:/app
+    command: sh -c "cd /app && python3 manage.py runserver 0.0.0.0:8000"
+    ports:
+      - 8000:8000
+    tty: true
+
+  # db:
+  #   image: mariadb:/latest
+  #   environment:
+
+  frontend:
+    container_name: "node21"
+    build: ./frontend/app
+    volumes:
+      - ./frontend/app:/usr/src/app
+    command: sh -c "cd /usr/src/app && npm start"
+    ports:
+      - 3000:3000

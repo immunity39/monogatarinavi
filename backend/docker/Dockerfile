@@ -1,14 +1,14 @@
-FROM ubuntu:22.04
+FROM debian:bullseye-slim
 
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get install -y python3.11 && \
     apt-get install -y python3-pip && \
     apt-get install -y pkg-config && \
-    apt-get install -y mysql-server && \
+    apt-get install -y mariadb-server && \
     apt-get install -y default-libmysqlclient-dev && \
     apt-get install -y gcc && \
-    apt-get install -y libc-dev
+    apt-get install -y libc-dev && \
+    apt-get install -y tzdata
 
 ENV PYTHONUNBUFFERED 1
 

@@ -17,3 +17,10 @@ class ProductInfoViewSet(viewsets.ModelViewSet):
 class ProductPilgrimageViewSet(viewsets.ModelViewSet):
     queryset = ProductPilgrimage.objects.all()
     serializer_class = ProductPilgrimageSerializer
+
+@api_view(['GET'])
+def get_pilgrim_by_id(request, id):
+    if request.method == 'GET':
+        queryset = ProductPilgrimage.objects.filter(info_id=id)
+        serializer_class = ProductPilgrimageSerializer(queryset, many=True)
+        return JsonResponse(serializer_class.data, safe=False)

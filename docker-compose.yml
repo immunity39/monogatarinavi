@@ -27,6 +27,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./init:/docker-entrypoint-initdb.d
     environment:
       TZ: "Asia/Tokyo"
       MYSQL_ROOT_PASSWORD: passwd
@@ -43,7 +44,7 @@ services:
     ports:
       - 8080:80
     environment:
-      PMA_HOST: db
+      PMA_HOST: mysql8
       PMA_USER: root
       PMA_PASSWORD: password
 

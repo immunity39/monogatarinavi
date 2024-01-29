@@ -1,7 +1,12 @@
-from rest_fremwork import serializers
-from .models import MyModel
+from rest_framework import serializers
+from .models import ProductInfo, ProductPilgrimage
 
-class MyModelSerializer(serializers.ModelSerializer):
+class ProductInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MyModel
-        fields = '__all__'
+        model = ProductInfo
+        fields = ['id', 'name']
+
+class ProductPilgrimageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductPilgrimage
+        fields = ['id', 'info_id', 'location', 'latitude', 'longitude']

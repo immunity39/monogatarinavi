@@ -18,7 +18,7 @@ services:
   db:
     image: mysql:8.0
     volumes:
-      - ../mysql_data:/var/lib/mysql
+      - backend/mysql_data:/var/lib/mysql
     environment:
       TZ: "Asia/Tokyo"
       MYSQL_ROOT_PASSWORD: passwd
@@ -37,7 +37,7 @@ services:
     environment:
       PMA_HOST: db
       PMA_USER: root
-      PMA_PASSWORD: passwd
+      PMA_PASSWORD: password
 
   frontend:
     container_name: "node21"

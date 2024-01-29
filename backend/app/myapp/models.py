@@ -11,8 +11,8 @@ class ProductInfo(models.Model):
 class ProductPilgrimage(models.Model):
     info_id = models.ForeignKey(ProductInfo, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
-    x_position = models.FloatField()
-    y_position = models.FloatField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

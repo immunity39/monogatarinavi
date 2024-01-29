@@ -1,5 +1,9 @@
 version: '3'
 
+volumes:
+  mysql_data:
+  my.cnf:
+
 services:
   backend:
     container_name: "django4"
@@ -8,29 +12,33 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend/app:/app
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
     command: sh -c "cd /app && python3 manage.py runserver 0.0.0.0:8000"
     ports:
       - 8000:8000
     tty: true
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
+    container_name: "mysql8"
     image: mysql:8.0
     volumes:
-      - backend/mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+      - my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       TZ: "Asia/Tokyo"
       MYSQL_ROOT_PASSWORD: passwd
       MYSQL_DATABASE: django_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: passwd
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
     ports:
       - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "db"]
 
   phpmyadmin:
+    container_name: "phpmyadmin"
     image: phpmyadmin/phpmyadmin
     ports:
       - 8080:80
@@ -39,11 +47,11 @@ services:
       PMA_USER: root
       PMA_PASSWORD: password
 
-  frontend:
-    container_name: "node21"
-    build: ./frontend/app
-    volumes:
-      - ./frontend/app:/usr/src/app
-    command: sh -c "cd /usr/src/app && npm start"
-    ports:
-      - 3000:3000
+  # frontend:
+  #   container_name: "node21"
+  #   build: ./frontend/app
+  #   volumes:
+  #     - ./frontend/app:/usr/src/app
+  #   command: sh -c "cd /usr/src/app && npm start"
+  #   ports:
+  #     - 3000:3000

@@ -12,7 +12,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend/app:/app
-      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
     command: sh -c "cd /app && python3 manage.py runserver 0.0.0.0:8000"
     ports:
       - 8000:8000
@@ -30,8 +29,9 @@ services:
       - ./init:/docker-entrypoint-initdb.d
     environment:
       TZ: "Asia/Tokyo"
-      MYSQL_ROOT_PASSWORD: passwd
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: django_db
+      MYSQL_USER: myroot
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - 3306:3306
@@ -44,9 +44,12 @@ services:
     ports:
       - 8080:80
     environment:
-      PMA_HOST: mysql8
-      PMA_USER: root
+      PMA_HOST: db
+      PMA_USER: myroot
       PMA_PASSWORD: password
+    depends_on:
+      db:
+        condition: service_healthy
 
   # frontend:
   #   container_name: "node21"

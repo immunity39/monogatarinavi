@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export default function SearchComponent() {
   const [title, setTitle] = useState(''); // ユーザーの入力を追跡するstate
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     setTitle(e.target.value); // 入力フィールドの値で状態を更新
     console.log("Input Changed:", e.target.value);
   };

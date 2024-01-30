@@ -9,7 +9,8 @@ import PilgrimageMeterComponent from "./components/PilgrimageMeterComponent";
 
 function App() {
   const [data, setData] = useState(null);
-  const [selectedSeriesId, setSelectedSeriesId] = useState<number | null>(9999); // selectedSeriesIdの初期値を9999に設定
+  const [selectedSeriesId, setSelectedSeriesId] = useState(9999); // 型注釈を削除
+
 
   useEffect(() => {
     async function fetchData() {

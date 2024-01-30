@@ -51,11 +51,11 @@ services:
       db:
         condition: service_healthy
 
-  # frontend:
-  #   container_name: "node21"
-  #   build: ./frontend/app
-  #   volumes:
-  #     - ./frontend/app:/usr/src/app
-  #   command: sh -c "cd /usr/src/app && npm start"
-  #   ports:
-  #     - 3000:3000
+  frontend:
+    container_name: "node21"
+    build: ./frontend/app
+    volumes:
+      - ./frontend/app:/usr/src/app
+    command: sh -c "cd /usr/src/app && npm start"
+    ports:
+      - 3000:3000

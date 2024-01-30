@@ -2,6 +2,7 @@ FROM debian:bullseye-slim
 
 RUN apt-get update && \
     apt-get -y upgrade && \
+    apt-get install -y python3 && \
     apt-get install -y python3-pip && \
     apt-get install -y pkg-config && \
     apt-get install -y mariadb-server && \

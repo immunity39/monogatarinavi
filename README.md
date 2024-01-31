@@ -36,6 +36,9 @@ cd ../..
 **buildに関しては初回時のみ**
 ```
 docker-compose build
+```
+
+```
 docker-compose up -d
 ```
 コンテナの起動にはそれぞれある程度の時間がかかります。

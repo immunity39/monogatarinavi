@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import mapboxgl from 'mapbox-gl';
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import token from './../.gitignore/accessToken';
+import TOKEN from "../token/token.json";
+
 const MapComponent = ({ json_data, selectedSeriesId }) => {
-  mapboxgl.accessToken = token;
+  mapboxgl.accessToken = TOKEN[0].token;
   const mapContainer = useRef(null);
   const [map, setMap] = useState(null);
   const markers = useRef([]);

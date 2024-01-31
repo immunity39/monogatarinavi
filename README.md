@@ -3,11 +3,30 @@
 ## 動作
 git cloneによってこのリポジトリをクローン。
 
-
-npm installでfront側の環境を構築 + ホームディレクトリへ移動
+frontのホームディレクトリに移動
 ```
 cd frontend/app
+```
+
+npmのインストール
+```
 npm install
+```
+
+Mapbox関連のパッケージをインストール
+```
+npm install --save mapbox-gl @types/mapbox-gl @mapbox/mapbox-gl-language
+```
+
+react-iconsをインストール
+```
+npm install react-icons --save
+```
+
+tokenファイルをsrcもとに配置
+
+ルートディレクトリに戻る
+```
 cd ../..
 ```
 
@@ -17,6 +36,7 @@ cd ../..
 **buildに関しては初回時のみ**
 ```
 docker-compose build
+
 docker-compose up -d
 ```
 コンテナの起動にはそれぞれある程度の時間がかかります。

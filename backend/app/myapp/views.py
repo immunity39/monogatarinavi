@@ -29,8 +29,34 @@ def get_pilgrim_by_id(request, id):
 
 @api_view(['POST'])
 def json_post_test(request):
+    if request.method == 'GET':
+        return JsonResponse({})
+
     if request.method == 'POST':
         data = json.loads(request.body)
-        queryset = ProductInfo.objects.filter(name=data)
-        serializer = PostProductPilgrimSerializer(queryset, many=True)
-        return JsonResponse(serializer.data, safe=False) 
+
+        id_cnt = 0
+        result = []
+        for i in data:
+            title = i.get('title')
+            product = ProductInfo.objects.get(name=title)
+            pilgrim = ProductPilgrimage.objects.filter(info_id=product)
+
+            res_info = []
+            for addr_cnt, p in enumerate(pilgrim):
+                res_info.append({
+                    'id': addr_cnt,
+                    'name': p.location,
+                    'latitude': 0.0,
+                    'longitude': 0.0,
+                    'gone': 0
+                })
+
+            result.append({
+                'id': id_cnt,
+                'title': title,
+                'address': res_info
+            })
+            id_cnt += 1
+
+        return JsonResponse(result, safe=False)

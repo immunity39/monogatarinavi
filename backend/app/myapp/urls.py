@@ -13,5 +13,5 @@ urlpatterns = [
     path('', include(router.urls)),
 
     path('select/<int:id>', get_pilgrim_by_id),
-    path('search/$', json_post_test),
+    path('search', json_post_test),
 ]

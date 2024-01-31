@@ -31,5 +31,6 @@ def get_pilgrim_by_id(request, id):
 def json_post_test(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        serializer = PostProductPilgrimSerializer(data=data)
+        queryset = ProductInfo.objects.filter(name=data)
+        serializer = PostProductPilgrimSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False) 

@@ -1,0 +1,73 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.sidebar_component{
+    position: absolute;
+    left:  30px;                /* 左からの位置指定 */
+    top: 180px;                  /* 上からの位置指定 */
+    z-index: 1;
+}
+
+
+.pilgrimageMeter_component{
+    position: absolute;
+    right:  30px;               /* 右からの位置指定 */
+    top: 180px;                  /* 上からの位置指定 */
+    z-index: 1;
+}
+
+.title_component{
+    position: absolute;
+    left:  30px;                /* 左からの位置指定 */
+    top: 10px;                  /* 上からの位置指定 */
+    z-index: 1;
+}
+
+.search_component{
+    position: absolute;
+    right:  30px;               /* 右からの位置指定 */
+    top: 10px;                  /* 上からの位置指定 */
+    z-index: 1;
+}
+
+.map_component{
+    padding: -10px;
+}
+
+.search{
+    display: flex;
+    justify-content: right;
+}
+.search__bar{
+    display: flex;
+    padding: 15px;
+    margin: 5px;
+    border: 1px solid lightgray;
+    border-radius: 999px;
+    background-color: #f0f2f5;
+}
+.search__bar > input {
+    border: none !important;
+    background-color: #f0f2f5;
+}
+
+.search__bar > input:focus {
+    outline-width: 0;
+}
+
+.search__bar > input::placeholder{
+    text-align: left;
+    font-size: 15px;
+}
+
+.search__bar__button {
+    padding: 18px 15px;
+    margin: 5px;
+    color: #f0f2f5;
+    border: 0px solid rgb(116, 116, 116);
+    border-radius: 999px;
+    background-color: #d2691e;
+    cursor: pointer;
+}

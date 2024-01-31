@@ -6,6 +6,8 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm install
+RUN npm install && \
+    npm install --save mapbox-gl @types/mapbox-gl @mapbox/mapbox-gl-language && \
+    npm install react-icons --save
 
 COPY . .

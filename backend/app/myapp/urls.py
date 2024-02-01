@@ -4,7 +4,7 @@ from rest_framework import routers
 from rest_framework.routers import DefaultRouter
 from .views import ProductInfoViewSet, ProductPilgrimageViewSet, get_pilgrim_by_id
 from .views import json_post_test, get_front_data, get_title, get_pilgrim
-from .views import get_all_data, get_user_all_data
+from .views import get_all_data, get_user_all_data, ch_user_gone
 from .views import init_db
 
 router = DefaultRouter()
@@ -24,6 +24,9 @@ urlpatterns = [
     path('all_data', get_all_data),
     # user入力情報のデータをjson形式で全表示 0-index
     path('user_all_data', get_user_all_data),
+
+    # userが場所にいったことがあれば記録
+    path('user_gone', ch_user_gone),
 
     # 1タイトルの検索結果を表示
     path('search', json_post_test),

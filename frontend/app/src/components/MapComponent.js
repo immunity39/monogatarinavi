@@ -67,8 +67,8 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
       navigator.geolocation.getCurrentPosition((position) => {
         // 現在地の取得に成功
         initializeMap({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
+          latitude: 13,
+          longitude: 45
         });
       }, () => {
         // 現在地の取得に失敗した場合、デフォルト位置を使用

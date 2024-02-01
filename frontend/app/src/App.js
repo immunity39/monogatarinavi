@@ -11,11 +11,15 @@ function App() {
   const [data, setData] = useState(null);
   const [selectedSeriesId, setSelectedSeriesId] = useState(9999); // 型注釈を削除
 
+  const updateData = (newData) => {
+    setData(newData);
+  };
+
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch('http://127.0.0.1:5000/fetch_json');
+        const res = await fetch('http://localhost:8000/api/user_all_data');
         if (!res.ok) {
           throw new Error('Failed to retrieve data.');
         }
@@ -34,7 +38,17 @@ function App() {
     setSelectedSeriesId(id); // 選択されたIDで状態を更新
   };
 
-  if (!data) return <div>ローディング中...</div>;
+  if (!data) return (
+    <main>
+      <div className="title_component">
+        <TitleComponent />
+      </div>
+
+      <div className="search_component">
+        <SearchComponent onUpdateData={updateData}/>
+      </div>
+    </main>
+  );
 
   return (
     <main>
@@ -43,7 +57,7 @@ function App() {
       </div>
 
       <div className="search_component">
-        <SearchComponent />
+        <SearchComponent onUpdateData={updateData}/>
       </div>
 
       <div className="pilgrimageMeter_component">

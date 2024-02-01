@@ -97,7 +97,7 @@ export default function SidebarComponent({
               }}
               onClick={() => selectSeries(series.id)}
             >
-              <span>{series.title}</span>
+              <span>{series.name}</span>
             </button>
           ))}
         </div>

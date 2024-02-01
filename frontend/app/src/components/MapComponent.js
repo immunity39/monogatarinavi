@@ -44,7 +44,7 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,
         center: [longitude, latitude], // ユーザーの現在地またはデフォルト位置
-        zoom: 15,
+        zoom: 2,
         style: 'mapbox://styles/mapbox/streets-v12',
       });
 
@@ -67,8 +67,8 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
       navigator.geolocation.getCurrentPosition((position) => {
         // 現在地の取得に成功
         initializeMap({
-          latitude: 13,
-          longitude: 45
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
         });
       }, () => {
         // 現在地の取得に失敗した場合、デフォルト位置を使用

@@ -6,6 +6,7 @@ import SearchComponent from "./components/SearchComponent";
 import MapComponent from "./components/MapComponent";
 import SidebarComponent from "./components/SidebarComponent";
 import PilgrimageMeterComponent from "./components/PilgrimageMeterComponent";
+import Map from "./components/Map";
 
 function App() {
   const [data, setData] = useState(null);
@@ -46,6 +47,10 @@ function App() {
 
       <div className="search_component">
         <SearchComponent onUpdateData={updateData}/>
+      </div>
+
+      <div className="map_component">
+        <Map/>
       </div>
     </main>
   );

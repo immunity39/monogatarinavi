@@ -21,6 +21,7 @@ class ProductPilgrimageViewSet(viewsets.ModelViewSet):
     queryset = ProductPilgrimage.objects.all()
     serializer_class = ProductPilgrimageSerializer
 
+@csrf_exempt
 @api_view(['GET'])
 def get_title(request):
     if request.method == 'GET':
@@ -35,6 +36,7 @@ def get_title(request):
             id_cnt += 1
         return JsonResponse(result, safe=False)
 
+@csrf_exempt
 @api_view(['GET'])
 def get_pilgrim(request):
     if request.method == 'GET':
@@ -52,6 +54,7 @@ def get_pilgrim(request):
             id_cnt += 1
         return JsonResponse(result, safe=False)
 
+@csrf_exempt
 @api_view(['GET'])
 def get_pilgrim_by_id(request, id):
     if request.method == 'GET':
@@ -59,6 +62,7 @@ def get_pilgrim_by_id(request, id):
         serializer_class = ProductPilgrimageSerializer(queryset, many=True)
         return JsonResponse(serializer_class.data, safe=False)
 
+@csrf_exempt
 @api_view(['POST'])
 def json_post_test(request):
     if request.method == 'GET':
@@ -93,6 +97,7 @@ def json_post_test(request):
 
         return JsonResponse(result, safe=False)
 
+@csrf_exempt
 @api_view(['GET'])
 def get_front_data(request):
     if request.method == 'GET':
@@ -121,3 +126,74 @@ def init_db(request):
             return JsonResponse({'message': 'Data inserted successfully.'})
         except Exception as e:
             return JsonResponse({'message': str(e)}, status=500)
+
+def get_data_for_user(product):
+    result = []
+    pilgrim = ProductPilgrimage.objects.filter(info_id=product)
+
+    addr_cnt = 0
+    for p in pilgrim:
+        result.append({
+            'id': addr_cnt,
+            'name': p.location,
+            'latitude': p.latitude,
+            'longitude': p.longitude,
+            'gone': p.gone
+        })
+        addr_cnt += 1
+    return result
+    
+@csrf_exempt
+@api_view(['POST'])
+def get_user_all_data(request):
+    if request.method == 'GET':
+        return JsonResponse({})
+
+    data = json.loads(request.body.decode('utf-8'))
+    result = []
+    id_cnt = 0
+
+    for i in data:
+        title = i.get('title')
+        product = ProductInfo.objects.get(name=title)
+
+        result.append({
+            'id': id_cnt,
+            'title': title,
+            'address': get_data_for_user(product=product)
+        })
+        id_cnt += 1
+    return JsonResponse(result, safe=False)
+
+@csrf_exempt
+@api_view(['GET'])
+def get_all_data(request):
+    if request.method == 'POST':
+        return JsonResponse({})
+    
+    product = ProductInfo.objects.all()
+    id_cnt = 0
+    result = []
+    for i in product:
+        pilgrim = ProductPilgrimage.objects.filter(info_id=i)
+        title = i.name
+
+        res_info = []
+        addr_cnt = 0
+        for k in pilgrim:
+            res_info.append({
+                'id': addr_cnt,
+                'name': k.location,
+                'latitude': k.latitude,
+                'longitude': k.longitude,
+                'gone': k.gone
+            })
+            addr_cnt += 1
+        
+        result.append({
+            'id': id_cnt,
+            'title': title,
+            'address': res_info
+        })
+        id_cnt += 1
+    return JsonResponse(result, safe=False)

@@ -29,4 +29,7 @@ DBに入っている全てのタイトル、聖地データを0-indexで表示
 1. api/user_all_data
 json形式でタイトルを渡すと対応するタイトルと聖地データの組み合わせを0-indexで表示
 
+1. api/user_gone
+title, locationのデータを渡すと、ユーザーがその聖地にいったことを記録
+
 **postmanでの実行は完了しています。**

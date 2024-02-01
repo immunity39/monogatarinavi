@@ -50,6 +50,10 @@ docker-compose up -d
 
 **(コンテナの起動に時間がかかる可能性があります)**
 
+### DBに初期データを挿入
+以下コマンドを実行
+`docker-compose exec backend sh -c "python3 db_init.py"`
+
 ## 終了
 コンテナを閉じる
 ```

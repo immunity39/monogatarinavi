@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -133,12 +133,15 @@ def get_data_for_user(product):
 
     addr_cnt = 0
     for p in pilgrim:
+        p_gone = 0
+        if p.gone == True:
+            p_gone = 1
         result.append({
             'id': addr_cnt,
             'name': p.location,
             'latitude': p.latitude,
             'longitude': p.longitude,
-            'gone': p.gone
+            'gone': p_gone
         })
         addr_cnt += 1
     return result
@@ -181,12 +184,15 @@ def get_all_data(request):
         res_info = []
         addr_cnt = 0
         for k in pilgrim:
+            k_gone = 0
+            if k.gone == True:
+                k_gone = 1
             res_info.append({
                 'id': addr_cnt,
                 'name': k.location,
                 'latitude': k.latitude,
                 'longitude': k.longitude,
-                'gone': k.gone
+                'gone': k_gone
             })
             addr_cnt += 1
         
@@ -197,3 +203,25 @@ def get_all_data(request):
         })
         id_cnt += 1
     return JsonResponse(result, safe=False)
+
+@csrf_exempt
+@api_view(['POST'])
+def ch_user_gone(request):
+    if request.method == 'GET':
+        return JsonResponse({})
+
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        for i in data:
+            name = i.get('title')
+            product = get_object_or_404(ProductInfo, name=name)
+            location = i.get('location')
+            pilgrim = get_object_or_404(ProductPilgrimage, info_id=product, location=location)
+
+            if pilgrim.gone == False:
+                pilgrim.gone = True
+            pilgrim.save()
+        return JsonResponse({'message': 'success'})
+    except Exception as e:
+        return JsonResponse({'message': str(e)}, status=500)
+    

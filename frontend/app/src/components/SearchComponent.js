@@ -10,7 +10,7 @@ export default function SearchComponent() {
 
   const handleSearch = () => {
     // バックエンドのエンドポイントURLを設定
-    const backendURL = 'http://your-backend-url.com/api/search'; // 実際のURLに置き換えてください
+    const backendURL = 'http://localhost:8000/api/search'; // 実際のURLに置き換えてください
 
     // リクエストを送信
     fetch(backendURL, {
@@ -18,7 +18,7 @@ export default function SearchComponent() {
       headers: {
         'Content-Type': 'application/json', // リクエストボディのコンテンツタイプをJSONに設定
       },
-      body: JSON.stringify({ title }), // 入力されたタイトルをJSON形式で送信
+      body: JSON.stringify([{ title: title }]), // 入力されたタイトルを含むオブジェクトの配列をJSON形式で送信
     })
       .then((response) => response.json())
       .then((data) => {

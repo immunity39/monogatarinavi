@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 export default function SearchComponent() {
   const [title, setTitle] = useState(''); // ユーザーの入力を追跡するstate
+  const [animeList, setAnimeList] = useState([]); // 入力された作品名のリストを管理
 
   const handleInputChange = (e) => {
     setTitle(e.target.value); // 入力フィールドの値で状態を更新
@@ -9,6 +10,11 @@ export default function SearchComponent() {
   };
 
   const handleSearch = () => {
+    // 入力された作品名を新しいオブジェクトとして作成し、リストに追加
+    const newAnime = { title: title };
+    const updatedAnimeList = [...animeList, newAnime];
+    setAnimeList(updatedAnimeList);
+
     // バックエンドのエンドポイントURLを設定
     const backendURL = 'http://localhost:8000/api/search'; // 実際のURLに置き換えてください
 
@@ -18,7 +24,7 @@ export default function SearchComponent() {
       headers: {
         'Content-Type': 'application/json', // リクエストボディのコンテンツタイプをJSONに設定
       },
-      body: JSON.stringify([{ title: title }]), // 入力されたタイトルを含むオブジェクトの配列をJSON形式で送信
+      body: JSON.stringify(updatedAnimeList), // 更新されたリストをJSON形式で送信
     })
       .then((response) => response.json())
       .then((data) => {
@@ -31,6 +37,9 @@ export default function SearchComponent() {
       .finally(() => {
         setTitle(''); // 検索バーの入力をリセット
       });
+
+    // コンソール上で現在のJSONファイルの内容を出力
+    console.log("Current JSON File:", JSON.stringify(updatedAnimeList, null, 2));
   };
 
   return (

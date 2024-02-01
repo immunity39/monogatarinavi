@@ -111,6 +111,10 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
             // 距離がachievementThreshold以下の場合、作品IDと場所IDをコンソールに表示
             if (distance < achievementThreshold) {
               console.log(`Achievement!! 作品ID: ${series.id}, 場所ID: ${locationId}`);
+              const title = json_data[series.id].title;
+              const locationName = json_data[series.id].address[locationId].name;
+
+              console.log(`Achievement!! 作品名: ${title}, 場所名: ${locationName}`);
             }
           });
         });
@@ -131,6 +135,10 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
             // 距離がachievementThreshold以下の場合、作品IDと場所IDをコンソールに表示
             if (distance < achievementThreshold) {
               console.log(`Achievement!! 作品ID: ${selectedSeriesId}, 場所ID: ${locationId}`);
+              const title = json_data[series.id].title;
+              const locationName = json_data[series.id].address[locationId].name;
+
+              console.log(`Achievement!! 作品名: ${title}, 場所名: ${locationName}`);
             }
           });
         }

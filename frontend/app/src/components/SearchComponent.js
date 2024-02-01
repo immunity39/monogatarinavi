@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function SearchComponent() {
+export default function SearchComponent({ onUpdateData }) {
   const [title, setTitle] = useState(''); // ユーザーの入力を追跡するstate
   const [animeList, setAnimeList] = useState([]); // 入力された作品名のリストを管理
 
@@ -16,7 +16,7 @@ export default function SearchComponent() {
     setAnimeList(updatedAnimeList);
 
     // バックエンドのエンドポイントURLを設定
-    const backendURL = 'http://localhost:8000/api/search'; // 実際のURLに置き換えてください
+    const backendURL = 'http://localhost:8000/api/user_all_data'; // 実際のURLに置き換えてください
 
     // リクエストを送信
     fetch(backendURL, {
@@ -30,6 +30,7 @@ export default function SearchComponent() {
       .then((data) => {
         // バックエンドからの応答を処理
         console.log(data); // 応答データをコンソールに出力する例
+        onUpdateData(data); // ここでAppコンポーネントのデータを更新
       })
       .catch((error) => {
         console.error('Error occurred:', error);

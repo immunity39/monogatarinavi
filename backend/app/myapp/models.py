@@ -13,6 +13,7 @@ class ProductPilgrimage(models.Model):
     location = models.CharField(max_length=255)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    gone = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

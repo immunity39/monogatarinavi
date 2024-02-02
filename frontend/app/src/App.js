@@ -16,25 +16,6 @@ function App() {
     setData(newData);
   };
 
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch('http://localhost:8000/api/user_all_data');
-        if (!res.ok) {
-          throw new Error('Failed to retrieve data.');
-        }
-        const result = await res.json();
-        setData(result);
-        console.log(result);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  
-    fetchData();
-  }, []); 
-
   const handleSeriesSelect = (id) => {
     setSelectedSeriesId(id); // 選択されたIDで状態を更新
   };

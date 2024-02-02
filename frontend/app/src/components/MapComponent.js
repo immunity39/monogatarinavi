@@ -44,7 +44,7 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,
         center: [longitude, latitude], // ユーザーの現在地またはデフォルト位置
-        zoom: 2,
+        zoom: 1000,
         style: 'mapbox://styles/mapbox/streets-v12',
       });
 

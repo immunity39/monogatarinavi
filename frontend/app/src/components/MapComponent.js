@@ -86,6 +86,29 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
     }
   }, []);
 
+  // 地名を入力して緯度、緯度を取得する関数
+  async function getCoordinates(placeName) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(placeName)}`;
+  
+    try {
+      const response = await fetch(url, { headers: { 'User-Agent': 'YourAppName' } });
+      const data = await response.json();
+  
+      if (data.length > 0) {
+        const { lat, lon } = data[0]; // 最初の結果の緯度と経度を取得
+        return { latitude: lat, longitude: lon };
+      } else {
+        // 座標が見つからない場合は、緯度と経度を0に設定
+        return { latitude: 0, longitude: 0 };
+      }
+    } catch (error) {
+      console.error('Error fetching coordinates:', error);
+      // エラーが発生した場合も、緯度と経度を0に設定
+      return { latitude: 0, longitude: 0 };
+    }
+  }
+  
+
   useEffect(() => {
     if (map && json_data) {
       // 既存のマーカーをクリア
@@ -99,11 +122,21 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
       if (selectedSeriesId === 9999) {
         Object.values(json_data).flat().forEach(series => {
           Object.entries(series.address).forEach(([locationId, location]) => {
-            const markerColor = location.gone === 1 ? visitedPinColor : 'red';
-            const marker = new mapboxgl.Marker({ color: markerColor })
-              .setLngLat([location.longitude, location.latitude])
-              .addTo(map);
-            markers.current.push(marker);
+            getCoordinates(location.name).then(coordinates => {
+              // 座標が0,0の場合はマーカーを追加しない
+              if (coordinates.latitude !== 0 || coordinates.longitude !== 0) {
+                console.log("locationName!!" + JSON.stringify(location.name, null, 2));
+                console.log("latitude" + coordinates.latitude);
+                console.log("longitude" + coordinates.longitude);
+
+                const markerColor = location.gone === 1 ? visitedPinColor : 'red';
+                const marker = new mapboxgl.Marker({ color: markerColor })
+                  .setLngLat([coordinates.longitude, coordinates.latitude])
+                  .addTo(map);
+                markers.current.push(marker);
+              }
+            })
+
 
             // 現在の位置との距離を計算
             const distance = calculateDistance(currentLocation, location);
@@ -140,11 +173,20 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
         const series = Object.values(json_data).flat().find(s => s.id === selectedSeriesId);
         if (series) {
           Object.entries(series.address).forEach(([locationId, location]) => {
-            const markerColor = location.gone === 1 ? visitedPinColor : 'red';
-            const marker = new mapboxgl.Marker({ color: markerColor })
-              .setLngLat([location.longitude, location.latitude])
-              .addTo(map);
-            markers.current.push(marker);
+            getCoordinates(location.name).then(coordinates => {
+              // 座標が0,0の場合はマーカーを追加しない
+              if (coordinates.latitude !== 0 || coordinates.longitude !== 0) {
+                console.log("locationName!!" + JSON.stringify(location.name, null, 2));
+                console.log("latitude" + coordinates.latitude);
+                console.log("longitude" + coordinates.longitude);
+
+                const markerColor = location.gone === 1 ? visitedPinColor : 'red';
+                const marker = new mapboxgl.Marker({ color: markerColor })
+                  .setLngLat([coordinates.longitude, coordinates.latitude])
+                  .addTo(map);
+                markers.current.push(marker);
+              }
+            })
 
             // 現在の位置との距離を計算
             const distance = calculateDistance(currentLocation, location);

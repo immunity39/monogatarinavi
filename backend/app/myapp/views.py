@@ -118,9 +118,9 @@ def init_db(request):
                 for locat in locats:
                     ProductPilgrimage.objects.create(
                         info_id = product,
-                        location = locat,
-                        latitude = 0.0,
-                        longitude = 0.0,
+                        location = locat['name'],
+                        latitude = locat['coordinates']['latitude'],
+                        longitude = locat['coordinates']['longitude'],
                         gone = False
                     )
             return JsonResponse({'message': 'Data inserted successfully.'})

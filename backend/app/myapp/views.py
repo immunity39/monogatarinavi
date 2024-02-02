@@ -208,7 +208,7 @@ def get_all_data(request):
 @api_view(['POST'])
 def ch_user_gone(request):
     if request.method == 'GET':
-        return JsonResponse({})
+        return "GET method"
 
     try:
         data = json.loads(request.body.decode('utf-8'))
@@ -221,7 +221,7 @@ def ch_user_gone(request):
             if pilgrim.gone == False:
                 pilgrim.gone = True
             pilgrim.save()
-        return JsonResponse({'message': 'success'})
+        return "changed!"
     except Exception as e:
-        return JsonResponse({'message': str(e)}, status=500)
+        return str(e)
     

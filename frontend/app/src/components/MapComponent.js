@@ -122,7 +122,7 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
                 headers: {
                   'Content-Type': 'application/json', // リクエストボディのコンテンツタイプをJSONに設定
                 },
-                body: {"title":title,"locationname":locationName },
+                body: {"title":title,"location":locationName },
               })
                 .then((response) => response.json())
                 .then((data) => {

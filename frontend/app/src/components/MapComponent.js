@@ -44,7 +44,7 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,
         center: [longitude, latitude], // ユーザーの現在地またはデフォルト位置
-        zoom: 2,
+        zoom: 1000,
         style: 'mapbox://styles/mapbox/streets-v12',
       });
 
@@ -107,7 +107,6 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
 
             // 現在の位置との距離を計算
             const distance = calculateDistance(currentLocation, location);
-
             // 距離がachievementThreshold以下の場合、作品IDと場所IDをコンソールに表示
             if (distance < achievementThreshold) {
               console.log(`Achievement!! 作品ID: ${series.id}, 場所ID: ${locationId}`);
@@ -115,6 +114,24 @@ const MapComponent = ({ json_data, selectedSeriesId }) => {
               const locationName = json_data[series.id].address[locationId].name;
 
               console.log(`Achievement!! 作品名: ${title}, 場所名: ${locationName}`);
+
+              const backendURL = 'http://localhost:8000/api/user_gone';
+
+              fetch(backendURL, {
+                method: 'POST', // POSTリクエストを送信することを指定
+                headers: {
+                  'Content-Type': 'application/json', // リクエストボディのコンテンツタイプをJSONに設定
+                },
+                body: {"title":title,"location":locationName },
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  // バックエンドからの応答を処理
+                  console.log(data); // 応答データをコンソールに出力する例
+                })
+                .catch((error) => {
+                  console.error('Error occurred:', error);
+                });
             }
           });
         });

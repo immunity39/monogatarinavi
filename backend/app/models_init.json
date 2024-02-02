@@ -1,18 +1,50 @@
 {
-  "Fate/kaleid liner プリズマ☆イリヤ": [
-    "兵庫県神戸市中央区新港町",
-    "東京都多摩市関戸1-10-1"
+  "R.O.D": [
+    {
+      "name": "読子御用達の秘密書店「トト・ブックス」",
+      "coordinates": {"latitude": 35.6895, "longitude": 139.6917}
+    },
+    {
+      "name": "読子がよく出没するストリート",
+      "coordinates": {"latitude": 35.6895, "longitude": 139.6918}
+    },
+    {
+      "name": "本の入った紙袋の束をさげた読子が出てきたところ",
+      "coordinates": {"latitude": 35.6896, "longitude": 139.6919}
+    },
+    {
+      "name": "悠久堂書店",
+      "coordinates": {"latitude": 35.6897, "longitude": 139.6920}
+    },
+    {
+      "name": "明倫館書店",
+      "coordinates": {"latitude": 35.6898, "longitude": 139.6921}
+    },
+    {
+      "name": "ねねねのマンション近くの橋",
+      "coordinates": {"latitude": 35.6899, "longitude": 139.6922}
+    },
+    {
+      "name": "マンションから追い出された三姉妹が渡った橋",
+      "coordinates": {"latitude": 35.6900, "longitude": 139.6923}
+    },
+    {
+      "name": "三姉妹がくすぶっていた場所",
+      "coordinates": {"latitude": 35.6901, "longitude": 139.6924}
+    }
   ],
-  "Fate/stay night": [
-    "兵庫県神戸市中央区新港町",
-    "兵庫県神戸市中央区新港町",
-    "兵庫県神戸市中央区下山手通2-11-13",
-    "兵庫県明石市明石公園1-27",
-    "兵庫県神戸市中央区北野町1丁目",
-    "兵庫県神戸市中央区新港町",
-    "兵庫県神戸市中央区北野町3-13-3",
-    "千葉県千葉市美浜区中瀬1-6NTT幕張ビル",
-    "福井県吉田郡永平寺町志比5-15",
-    "福井県吉田郡永平寺町志比5-15"
+  "R.O.D -THE TV-": [
+    {
+      "name": "ねねねのマンション近くの橋",
+      "coordinates": {"latitude": 35.6902, "longitude": 139.6925}
+    },
+    {
+      "name": "マンションから追い出された三姉妹が渡った橋",
+      "coordinates": {"latitude": 35.6903, "longitude": 139.6926}
+    },
+    {
+      "name": "三姉妹がくすぶっていた場所",
+      "coordinates": {"latitude": 35.6904, "longitude": 139.6927}
+    }
   ]
 }
